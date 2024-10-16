@@ -1,14 +1,17 @@
 import connectDB from "@/config/database";
+import Property from "@/models/Property";
 
 export const GET = async (request) => {
   try {
     await connectDB();
 
-    return new Response(JSON.stringify({ message: "hello world" }), {
+    const properties = await Property.find({});
+
+    return new Response(JSON.stringify(properties), {
       status: 200,
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return new Response("Something went wrong", { status: 500 });
   }
 };
